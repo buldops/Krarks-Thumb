@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <title>Coin Flip Simulator</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Lato", sans-serif;
+      font-weight:700;
       text-align: center;
       margin: 20px;
-      background-color: #333;
+      background-color: #151F20;
       color: #fff;
     }
     button {
@@ -23,69 +27,76 @@
       transition: background-color 0.3s;
     }
     button.blue {
-      background-color: #3498db;
+      background-color: #166DBA;
     }
     button.red {
-      background-color: #e74c3c;
+      background-color: #F25C39;
     }
     #result {
       margin-top: 20px;
       font-size: 18px;
     }
+    .blue-text {
+      color: #166DBA;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Coin Flip Simulator</h1>
+    <h1>Coin Flip Simulator</h1>
   
-  <button class="blue" onclick="simulateSingleCoinFlips()">Flip 5 Coins</button>
-  <button class="red" onclick="simulateDoubleCoinFlips()">Flip 5 Coins with Krark's Thumb</button>
+    <button class="blue" onclick="simulateSingleCoinFlips()">Flip 5 Coins</button>
+    <button class="red" onclick="simulateDoubleCoinFlips()">Flip 5 Coins with Krark's Thumb</button>
+    
+    <div id="result"></div>
   
-  <div id="result"></div>
-
-  <script>
-    function simulateSingleCoinFlips() {
-      simulateCoinFlips(1);
-    }
-
-    function simulateDoubleCoinFlips() {
-      simulateCoinFlips(2);
-    }
-
-    function simulateCoinFlips(numberOfFlips) {
-      // Array to store the results of each coin flip
-      const results = [];
-
-      // Simulate 5 sets of coin flips
-      for (let i = 0; i < 5; i++) {
-        // Array to store the results of each set
-        const setResults = [];
-
-        // Perform the specified number of coin flips in each set
-        for (let j = 0; j < numberOfFlips; j++) {
-          // Generate a random number (0 or 1) to represent heads or tails
-          const result = Math.floor(Math.random() * 2);
-          
-          // Push the individual result to the set array
-          setResults.push(result === 0 ? 'Heads' : 'Tails');
-        }
-
-        // Determine the overall result for the set
-        const setResult = setResults.includes('Heads') ? 'Heads' : 'Tails';
-
-        // Push the overall result to the main array
-        results.push(setResult);
+    <script>
+      function simulateSingleCoinFlips() {
+        simulateCoinFlips(1);
       }
-
-      // Display the results
-      displayResults(results);
-    }
-
-    function displayResults(results) {
-      const resultElement = document.getElementById('result');
-      resultElement.innerHTML = '<strong>Results:</strong> ' + results.join(', ');
-    }
-  </script>
-
-</body>
-</html>
+  
+      function simulateDoubleCoinFlips() {
+        simulateCoinFlips(2);
+      }
+  
+      function simulateCoinFlips(numberOfFlips) {
+        // Array to store the results of each coin flip
+        const results = [];
+  
+        // Simulate 5 sets of coin flips
+        for (let i = 0; i < 5; i++) {
+          // Array to store the results of each set
+          const setResults = [];
+  
+          // Perform the specified number of coin flips in each set
+          for (let j = 0; j < numberOfFlips; j++) {
+            // Generate a random number (0 or 1) to represent heads or tails
+            const result = Math.floor(Math.random() * 2);
+            
+            // Push the individual result to the set array
+            setResults.push(result === 0 ? 'Heads' : 'Tails');
+          }
+  
+          // Push the set results to the main array
+          results.push(setResults);
+        }
+  
+        // Display the results
+        displayResults(results);
+      }
+  
+      function displayResults(results) {
+        const resultElement = document.getElementById('result');
+        resultElement.innerHTML = '<strong>Results:</strong><br>';
+  
+        // Iterate through the results array and display each line
+        results.forEach((setResults, index) => {
+          const setResult = setResults.includes('Heads') ? 'Heads' : 'Tails';
+          const textColorClass = setResult === 'Heads' ? 'blue-text' : '';
+          resultElement.innerHTML += `<span class="${textColorClass}">${index + 1}. ${setResults.join(', ')}</span><br>`;
+        });
+      }
+    </script>
+  
+  </body>
+  </html>
