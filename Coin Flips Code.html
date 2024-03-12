@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coin Flip Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+      background-color: #333;
+      color: #fff;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      transition: background-color 0.3s;
+    }
+    button.blue {
+      background-color: #3498db;
+    }
+    button.red {
+      background-color: #e74c3c;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Coin Flip Simulator</h1>
+  
+  <button class="blue" onclick="simulateSingleCoinFlips()">Flip 5 Coins</button>
+  <button class="red" onclick="simulateDoubleCoinFlips()">Flip 5 Coins with Krark's Thumb</button>
+  
+  <div id="result"></div>
+
+  <script>
+    function simulateSingleCoinFlips() {
+      simulateCoinFlips(1);
+    }
+
+    function simulateDoubleCoinFlips() {
+      simulateCoinFlips(2);
+    }
+
+    function simulateCoinFlips(numberOfFlips) {
+      // Array to store the results of each coin flip
+      const results = [];
+
+      // Simulate 5 sets of coin flips
+      for (let i = 0; i < 5; i++) {
+        // Array to store the results of each set
+        const setResults = [];
+
+        // Perform the specified number of coin flips in each set
+        for (let j = 0; j < numberOfFlips; j++) {
+          // Generate a random number (0 or 1) to represent heads or tails
+          const result = Math.floor(Math.random() * 2);
+          
+          // Push the individual result to the set array
+          setResults.push(result === 0 ? 'Heads' : 'Tails');
+        }
+
+        // Determine the overall result for the set
+        const setResult = setResults.includes('Heads') ? 'Heads' : 'Tails';
+
+        // Push the overall result to the main array
+        results.push(setResult);
+      }
+
+      // Display the results
+      displayResults(results);
+    }
+
+    function displayResults(results) {
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = '<strong>Results:</strong> ' + results.join(', ');
+    }
+  </script>
+
+</body>
+</html>
